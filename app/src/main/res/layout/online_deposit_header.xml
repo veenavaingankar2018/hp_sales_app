@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/hp_header_color"
+    android:orientation="horizontal"
+    android:padding="@dimen/general_gap_2xs">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/general_gap_xs"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/mode_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mode"
+            android:textAlignment="center"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/font_size_s"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/general_gap_xs"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/amount_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/amount"
+            android:textAlignment="center"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/font_size_s"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/general_gap_xs"
+        android:layout_weight="1">
+
+    <TextView
+            android:id="@+id/remark_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/remark"
+            android:textAlignment="center"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/font_size_s"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</LinearLayout>
+

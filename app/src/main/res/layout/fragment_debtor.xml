@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?><!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/header_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/hp_header_color"
+        android:orientation="horizontal"
+        android:padding="@dimen/general_gap_xs">
+
+        <TextView
+            android:id="@+id/debtor_id_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/debtor_id_column"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/font_size_normal"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/debtor_name_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:text="@string/debtor_name_header"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/font_size_normal"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/debtor_status_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/debtor_status_header"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/font_size_normal"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/add_button"
+        android:layout_below="@+id/header_title"
+        android:fillViewport="true"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/debtor_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </ScrollView>
+
+    <Button
+        android:id="@+id/add_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/red_color"
+        android:textColor="@color/text_color"
+        android:textStyle="bold"
+        android:text="@string/debtor_add_button"
+        android:elevation="@dimen/button_elevation"
+        android:textAllCaps="false" />
+
+</RelativeLayout>

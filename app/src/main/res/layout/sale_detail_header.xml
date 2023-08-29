@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/hp_header_color"
+    android:orientation="horizontal"
+    android:padding="@dimen/general_gap_2xs">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/general_gap_xs"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/start_time_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/start_time"
+            android:textAlignment="center"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/font_size_s"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/general_gap_xs"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/end_time_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/end_time"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/font_size_s"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:layout_margin="@dimen/general_gap_xs"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/product"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/font_size_s"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/general_gap_xs"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/rate"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/font_size_s"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/general_gap_xs"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/start_reading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/start_reading"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/font_size_s"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:layout_margin="@dimen/general_gap_xs"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/end_reading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/end_reading"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/font_size_s"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/general_gap_xs"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/sale_volume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/sales_volume"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/font_size_s"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/general_gap_xs"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/pump_test_volume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/pump_test_volume"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/font_size_s"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/general_gap_xs"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/amount"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/font_size_s"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>
+

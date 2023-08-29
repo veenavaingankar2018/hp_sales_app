@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/general_gap_3xs"
+        android:orientation="horizontal"
+        android:padding="@dimen/general_gap_2xs">
+
+        <TextView
+            android:id="@+id/debtor_id_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/general_text_color"
+            android:textSize="@dimen/font_size_s"
+            android:textStyle="bold"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/debtor_name_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/general_text_color"
+            android:textSize="@dimen/font_size_s"
+            android:gravity="left|center"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/debtor_status_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/general_text_color"
+            android:textSize="@dimen/font_size_s"
+            android:gravity="center"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grayColor"
+        android:layout_marginTop="@dimen/general_gap_3xs"/>
+</LinearLayout>

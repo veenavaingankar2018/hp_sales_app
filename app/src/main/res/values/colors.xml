@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="alternate_odd_row_color">#fffccc</color>
+    <color name="text_color">#fffeee</color>
+    <color name="general_text_color">#333333</color>
+
+    <color name="blue_color">#0056b3</color>
+    <color name="light_red_color">#dc3545</color>
+    <color name="red_color">#df1a14</color>
+    <color name="light_blue">#007bff</color>
+    <color name="warning_color">#ffc107</color>
+    <color name="dark_color">#343a40</color>
+    <color name="hp_header_color">#004e8f</color>
+    <color name="nav_arrow_color">#ed2521</color>
+    <color name="dropdown_Color">#1565C0</color>
+
+
+    <color name="total_cost_pending_text_color">#ffa100</color>
+    <color name="total_cost_complete_text_color">#41b230</color>
+    <color name="total_cost_cancelled_text_color">#dd1e08</color>
+
+    <color name="not_available_layer_color">#ccffffff</color>
+    <color name="grayColor">#808080</color>
+</resources>

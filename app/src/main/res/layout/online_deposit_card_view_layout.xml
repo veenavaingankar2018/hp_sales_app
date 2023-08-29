@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/online_deposit_card_view_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/general_gap_xs">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/mode"
+            android:textColor="@color/general_text_color"
+            android:textSize="@dimen/font_size_s"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/mode_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/red_color"
+            android:textColor="@color/general_text_color"
+            android:textSize="@dimen/font_size_s" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/amount"
+            android:textColor="@color/general_text_color"
+            android:textSize="@dimen/font_size_s"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/amount_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/red_color"
+            android:textColor="@color/general_text_color"
+            android:textSize="@dimen/font_size_s" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/remark"
+            android:textColor="@color/general_text_color"
+            android:textSize="@dimen/font_size_s"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/remark_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/red_color"
+            android:textColor="@color/general_text_color"
+            android:textSize="@dimen/font_size_s" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/add_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/general_gap_3xs"
+            android:layout_weight="1"
+            android:background="@color/red_color"
+            android:elevation="@dimen/button_elevation"
+            android:text="@string/save_btn"
+            android:textColor="@color/text_color" />
+
+        <Button
+            android:id="@+id/cancel_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/general_gap_3xs"
+            android:layout_weight="1"
+            android:background="@color/red_color"
+            android:elevation="@dimen/button_elevation"
+            android:text="@string/cancel_btn"
+            android:textColor="@color/text_color" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/add_operator_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/general_gap_xs"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/operator_id_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:padding="@dimen/general_gap_xs"
+        android:gravity="center"
+        android:background="@color/hp_header_color">
+
+        <TextView
+            android:id="@+id/operator_id_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/operator_id_header"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/font_size_s"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/operator_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/font_size_s"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:padding="@dimen/general_gap_xs">
+
+        <EditText
+            android:id="@+id/operator_name_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/operator_name_hint"
+            android:textColor="@color/general_text_color"
+            android:backgroundTint="@color/red_color"
+            android:textSize="@dimen/font_size_s" />
+    </LinearLayout>
+    <CheckBox
+        android:id="@+id/isvalid"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_margin="@dimen/general_gap_3xs"
+        android:padding="@dimen/general_gap_xs"
+        android:text="@string/operator_status_header"
+        android:textColor="@color/general_text_color"
+        android:textSize="@dimen/font_size_s"
+        android:buttonTint="@color/red_color"
+        android:visibility="gone" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:padding="@dimen/general_gap_xs">
+
+        <Button
+            android:id="@+id/add_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save_btn"
+            android:textAllCaps="false"
+            android:textColor="@color/text_color"
+            android:background="@color/red_color"
+            android:elevation="@dimen/button_elevation"
+            android:textSize="@dimen/font_size_s"
+            android:layout_margin="@dimen/general_gap_3xs"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/cancel_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/cancel_btn"
+            android:textAllCaps="false"
+            android:textSize="@dimen/font_size_s"
+            android:textStyle="bold"
+            android:textColor="@color/text_color"
+            android:background="@color/red_color"
+            android:layout_margin="@dimen/general_gap_3xs"
+            android:elevation="@dimen/button_elevation"/>
+    </LinearLayout>
+</LinearLayout>
+

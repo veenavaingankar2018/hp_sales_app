@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="card_view_margin">10dp</dimen>
+    <dimen name="card_view_padding">10dp</dimen>
+    <dimen name="hint_text_size">12dp</dimen>
+    <dimen name="text_size">12dp</dimen>
+    <dimen name="card_elevation">10dp</dimen>
+    <dimen name="button_elevation">5dp</dimen>
+
+    <!-- General -->
+    <dimen name="general_gap_xl">36dp</dimen>
+    <dimen name="general_gap_l">24dp</dimen>
+    <dimen name="general_gap">16dp</dimen>
+    <dimen name="general_gap_s">12dp</dimen>
+    <dimen name="general_gap_xs">8dp</dimen>
+    <dimen name="general_gap_2xs">4dp</dimen>
+    <dimen name="general_gap_3xs">2dp</dimen>
+
+    <dimen name="font_size_3xl">24dp</dimen>
+    <dimen name="font_size_2xl">22dp</dimen>
+    <dimen name="font_size_xl">20dp</dimen>
+    <dimen name="font_size_l">18dp</dimen>
+    <dimen name="font_size_normal">16dp</dimen>
+    <dimen name="font_size_s">14dp</dimen>
+    <dimen name="font_size_xs">12dp</dimen>
+    <dimen name="font_size_2xs">10dp</dimen>
+
+</resources>

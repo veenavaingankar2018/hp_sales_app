@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/oil_sale_card_view_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/general_gap_xs"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/product"
+            android:textColor="@color/general_text_color"
+            android:textSize="@dimen/font_size_s"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/product_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/general_text_color"
+            android:backgroundTint="@color/red_color"
+            android:textSize="@dimen/font_size_s" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/quantity"
+            android:textColor="@color/general_text_color"
+            android:textSize="@dimen/font_size_s"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/quantity_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/general_text_color"
+            android:backgroundTint="@color/red_color"
+            android:textSize="@dimen/font_size_s" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/amount"
+            android:textColor="@color/general_text_color"
+            android:textSize="@dimen/font_size_s"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/amount_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/general_text_color"
+            android:backgroundTint="@color/red_color"
+            android:textSize="@dimen/font_size_s" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/add_btn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/save_btn"
+            android:textColor="@color/text_color"
+            android:background="@color/red_color"
+            android:elevation="@dimen/button_elevation"
+            android:layout_margin="@dimen/general_gap_3xs"/>
+
+        <Button
+            android:id="@+id/cancel_btn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel_btn"
+            android:textColor="@color/text_color"
+            android:background="@color/red_color"
+            android:elevation="@dimen/button_elevation"
+            android:layout_margin="@dimen/general_gap_3xs"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

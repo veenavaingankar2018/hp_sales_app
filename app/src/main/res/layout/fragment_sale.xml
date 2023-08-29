@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/spinner_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/card_elevation"
+        android:background="@color/blue_color">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/general_gap_2xs"
+            android:layout_marginTop="@dimen/general_gap_2xs"
+            android:layout_marginEnd="@dimen/general_gap_2xs"
+            android:layout_marginBottom="@dimen/general_gap_2xs"
+            android:orientation="horizontal"
+            android:padding="@dimen/general_gap_3xs">
+
+            <TextView
+                android:id="@+id/operator_id_header"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/operator"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/font_size_s"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/operator_spinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/spinner_bg"
+                android:elevation="@dimen/card_elevation"
+                android:spinnerMode="dropdown"
+                android:textColor="@color/text_color"
+                android:popupBackground="@color/dropdown_Color"
+                android:popupElevation="@dimen/card_elevation"
+                android:textSize="@dimen/font_size_s" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinner_layout"
+        app:tabBackground="@drawable/tab_color_selector"
+        app:tabIndicatorColor="@color/text_color"
+        app:tabTextColor="@color/text_color" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/save_btn"
+        android:layout_below="@+id/tabs" />
+
+    <Button
+        android:id="@+id/save_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/red_color"
+        android:elevation="@dimen/button_elevation"
+        android:text="@string/save_btn"
+        android:textAllCaps="false"
+        android:textColor="@color/text_color"
+        android:textStyle="bold" />
+
+</RelativeLayout>
