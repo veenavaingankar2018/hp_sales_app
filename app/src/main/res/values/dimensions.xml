@@ -21,7 +21,7 @@
     <dimen name="font_size_xl">20dp</dimen>
     <dimen name="font_size_l">18dp</dimen>
     <dimen name="font_size_normal">16dp</dimen>
-    <dimen name="font_size_s">14dp</dimen>
+    <dimen name="font_size_s">14sp</dimen>
     <dimen name="font_size_xs">12dp</dimen>
     <dimen name="font_size_2xs">10dp</dimen>
 

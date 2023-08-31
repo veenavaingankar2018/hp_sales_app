@@ -58,6 +58,8 @@ public class SaleFragment extends Fragment {
     SaleDetailFragment saleDetailFragment;
     OilSaleFragment oilSaleFragment;
     OnlineDepositFragment onlineDepositFragment;
+    CreditRecordFragment creditRecordFragment;
+    ExpenseFragment expenseFragment;
     List<Operator> operators = new ArrayList<>();
     String operator_name;
 
@@ -162,6 +164,10 @@ public class SaleFragment extends Fragment {
         adapter.addFrag(oilSaleFragment, "Oil Sale");
         onlineDepositFragment = new OnlineDepositFragment();
         adapter.addFrag(onlineDepositFragment, "Online Deposit");
+        creditRecordFragment = new CreditRecordFragment();
+        adapter.addFrag(creditRecordFragment, "Credit Record");
+        expenseFragment = new ExpenseFragment();
+        adapter.addFrag(expenseFragment, "Expense");
         viewPager.setAdapter(adapter);
         mFragmentTitleList = adapter.getmFragmentTitleList();
     }

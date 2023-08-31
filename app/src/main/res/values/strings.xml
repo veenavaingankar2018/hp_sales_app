@@ -8,6 +8,11 @@
     <string name="debtor">Debtor</string>
     <string name="bank_deposit">Bank Deposit</string>
 
+    <!-- Sale Screen -->
+    <string name="cash_Collected">Cash Collected</string>
+    <string name="total_sales_value">Total Sales Value</string>
+    <string name="net_collection">Net Collection</string>
+
     <!-- Operator Screen -->
     <string name="operator_id_column">Operator Id</string>
     <string name="operator_id_header">Operator Id : </string>
@@ -36,6 +41,16 @@
     <string name="sales_volume">Sales Volume</string>
     <string name="pump_test_volume">Pump Test Volume</string>
     <string name="amount">Amount</string>
+
+    <!-- Expense Screen -->
+    <string name="expense_add_btn">Add Expense</string>
+    <string name="description">Description</string>
+
+    <!-- Credit Screen -->
+    <string name="credit_add_btn">Add Credit</string>
+    <string name="transaction_type">Transaction Type</string>
+    <string name="driver_name">Driver Name</string>
+    <string name="vehicle_number">Vehicle Number</string>
 
     <!-- Oil Sale Screen -->
     <string name="oil_sale_add_btn">Add Oil Sale</string>

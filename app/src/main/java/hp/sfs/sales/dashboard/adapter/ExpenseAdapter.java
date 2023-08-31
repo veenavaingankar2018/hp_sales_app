@@ -17,48 +17,42 @@ import java.util.List;
 import java.util.Optional;
 
 import hp.sfs.sales.dashboard.R;
-import hp.sfs.sales.dashboard.model.OilSale;
-import hp.sfs.sales.dashboard.model.SaleDetail;
+import hp.sfs.sales.dashboard.model.Expense;
 
-public class OilSaleAdapter extends RecyclerView.Adapter<OilSaleAdapter.ViewHolder> {
+public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHolder> {
     Context context;
-    List<OilSale> oilSaleList;
+    List<Expense> expenseList;
 
-    public OilSaleAdapter(Context context, List<OilSale> oilSaleList) {
+    public ExpenseAdapter(Context context, List<Expense> expenseList) {
         this.context = context;
-        this.oilSaleList = oilSaleList;
+        this.expenseList = expenseList;
     }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View oilSaleView = layoutInflater.inflate(R.layout.oil_sale_list, parent, false);
-        OilSaleAdapter.ViewHolder viewHolder = new OilSaleAdapter.ViewHolder(oilSaleView);
+        View expenseView = layoutInflater.inflate(R.layout.expense_list, parent, false);
+        ExpenseAdapter.ViewHolder viewHolder = new ExpenseAdapter.ViewHolder(expenseView);
         return viewHolder;
     }
-
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        if (Optional.ofNullable(oilSaleList).isPresent()) {
-            holder.product_textview.setText(oilSaleList.get(position).product);
-            holder.quantity_textview.setText(oilSaleList.get(position).quantity.toString());
-            holder.amount_textview.setText(oilSaleList.get(position).amount.toString());
-
+        if (Optional.ofNullable(expenseList).isPresent()) {
+            Expense expense = expenseList.get(position);
+            holder.description_textview.setText(expense.description);
+            holder.amount_textview.setText(expense.amount.toString());
             holder.content_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Integer index = holder.getAdapterPosition();
-                    showOilSaleDialog(oilSaleList.get(index), index);
+                    showExpenseDialog(expenseList.get(index), index);
                 }
             });
-
         }
     }
-
-    private void showOilSaleDialog(OilSale oilSale, Integer index) {
+    private void showExpenseDialog(Expense expense, Integer index) {
         LayoutInflater li = LayoutInflater.from(this.context);
-        View promptsView = li.inflate(R.layout.oil_sale_card_view_layout, null);
+        View promptsView = li.inflate(R.layout.expense_card_view_layout, null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.context);
         alertDialogBuilder.setView(promptsView);
         // create alert dialog
@@ -66,33 +60,26 @@ public class OilSaleAdapter extends RecyclerView.Adapter<OilSaleAdapter.ViewHold
         alertDialog.setCanceledOnTouchOutside(false);
         alertDialog.setCancelable(false);
 
-        EditText product = (EditText) promptsView.findViewById(R.id.product_edit_text);
-        EditText quantity = (EditText) promptsView.findViewById(R.id.quantity_edit_text);
+        EditText description_edit_text = (EditText) promptsView.findViewById(R.id.description_edit_text);
         EditText amount = (EditText) promptsView.findViewById(R.id.amount_edit_text);
         Button add_button = (Button) promptsView.findViewById(R.id.add_btn);
         Button cancel_button = (Button) promptsView.findViewById(R.id.cancel_btn);
 
-        product.setText(oilSale.product);
-        quantity.setText(oilSale.quantity.toString());
-        amount.setText(oilSale.amount.toString());
-
+        description_edit_text.setText(expense.description);
+        amount.setText(expense.amount.toString());
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                OilSale oilSale = new OilSale();
-                oilSale.product = product.getText().toString();
-                String quantity_str = quantity.getText().toString();
-                oilSale.quantity = isStringNullOrEmpty(quantity_str) ?
-                        Double.parseDouble(quantity_str) : 0;
+                Expense expense = new Expense();
+                expense.description = description_edit_text.getText().toString();
                 String amount_txt = amount.getText().toString();
-                oilSale.amount = isStringNullOrEmpty(amount_txt) ?
+                expense.amount = isStringNullOrEmpty(amount_txt) ?
                         Double.parseDouble(amount_txt) : 0;
-                oilSaleList.set(index, oilSale);
+                expenseList.set(index, expense);
                 notifyItemChanged(index);
                 alertDialog.dismiss();
             }
         });
-
         cancel_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,26 +88,22 @@ public class OilSaleAdapter extends RecyclerView.Adapter<OilSaleAdapter.ViewHold
         });
         alertDialog.show();
     }
-
-    @Override
-    public int getItemCount() {
-        return oilSaleList.size();
-    }
-
     private boolean isStringNullOrEmpty(String str) {
         return str != null && !str.isEmpty();
     }
+    @Override
+    public int getItemCount() {
+        return expenseList.size();
+    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView product_textview;
-        TextView quantity_textview;
+        TextView description_textview;
         TextView amount_textview;
         LinearLayout content_layout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            product_textview = (TextView) itemView.findViewById(R.id.product_textview);
-            quantity_textview = (TextView) itemView.findViewById(R.id.quantity_textview);
+            description_textview = (TextView) itemView.findViewById(R.id.description_textview);
             amount_textview = (TextView) itemView.findViewById(R.id.amount_textview);
             content_layout = (LinearLayout) itemView.findViewById(R.id.content_layout);
         }
