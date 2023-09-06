@@ -14,12 +14,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import hp.sfs.sales.dashboard.R;
 import hp.sfs.sales.dashboard.adapter.OilSaleAdapter;
 import hp.sfs.sales.dashboard.adapter.SaleDetailAdapter;
+import hp.sfs.sales.dashboard.events.MessageEvent;
 import hp.sfs.sales.dashboard.model.OilSale;
 import hp.sfs.sales.dashboard.model.SaleDetail;
 
@@ -53,7 +58,16 @@ public class OilSaleFragment extends Fragment implements SaleFragment.OnSaveClic
 
         return fragment;
     }
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,9 +139,16 @@ public class OilSaleFragment extends Fragment implements SaleFragment.OnSaveClic
     private boolean isStringNullOrEmpty(String str) {
         return str != null && !str.isEmpty();
     }
-
     @Override
     public List<OilSale> getOilSaleList() {
         return oilSaleList;
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onOilSaleSaveEvent(MessageEvent messageEvent) {
+        System.out.println("Called MessageEvent");
+        if (messageEvent.success) {
+            oilSaleList.clear();
+            oilSaleAdapter.notifyDataSetChanged();
+        }
     }
 }

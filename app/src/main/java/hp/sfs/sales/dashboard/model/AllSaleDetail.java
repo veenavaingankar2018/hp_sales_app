@@ -22,7 +22,11 @@ public class AllSaleDetail implements Serializable {
     @SerializedName("onlineDeposit")
     @Expose
     public List<OnlineDeposit> onlineDepositList;
-    @SerializedName("difference")
+    @SerializedName("creditDetails")
     @Expose
-    public Double difference;
+    public List<Credit> creditList;
+    @SerializedName("expenses")
+    @Expose
+    public List<Expense> expenseList;
+
 }

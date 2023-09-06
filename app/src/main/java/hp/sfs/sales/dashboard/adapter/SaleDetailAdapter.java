@@ -8,10 +8,13 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -24,13 +27,17 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import hp.sfs.sales.dashboard.R;
+import hp.sfs.sales.dashboard.enums.Product;
 import hp.sfs.sales.dashboard.model.SaleDetail;
 
 public class SaleDetailAdapter extends RecyclerView.Adapter<SaleDetailAdapter.ViewHolder> {
-    Context context;
-    List<SaleDetail> saleDetailList;
+    private Context context;
+    private List<SaleDetail> saleDetailList;
+    private String selected_product;
 
     public SaleDetailAdapter(Context context, List<SaleDetail> saleDetailList) {
         this.context = context;
@@ -81,7 +88,7 @@ public class SaleDetailAdapter extends RecyclerView.Adapter<SaleDetailAdapter.Vi
 
         EditText startTime = (EditText) promptsView.findViewById(R.id.start_time_edit_text);
         EditText endTime = (EditText) promptsView.findViewById(R.id.end_time_edit_text);
-        EditText product = (EditText) promptsView.findViewById(R.id.product_edit_text);
+        Spinner product_spinner = (Spinner) promptsView.findViewById(R.id.product_spinner);
         EditText rate = (EditText) promptsView.findViewById(R.id.rate_edit_text);
         EditText startReading = (EditText) promptsView.findViewById(R.id.start_reading_edit_text);
         EditText endReading = (EditText) promptsView.findViewById(R.id.end_reading_edit_text);
@@ -90,9 +97,34 @@ public class SaleDetailAdapter extends RecyclerView.Adapter<SaleDetailAdapter.Vi
         EditText amount = (EditText) promptsView.findViewById(R.id.amount_edit_text);
         Button add_button = (Button) promptsView.findViewById(R.id.add_btn);
         Button cancel_button = (Button) promptsView.findViewById(R.id.cancel_btn);
+        //sales volume non-editable
+        salesVolume.setKeyListener(null);
+        salesVolume.setEnabled(false);
+        //make amount non-editable
+        amount.setKeyListener(null);
+        amount.setEnabled(false);
+
+        product_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selected_product = adapterView.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        List<String> productList = Stream.of(Product.values()).map(Product::name).collect(Collectors.toList());
+        ArrayAdapter<String> productAdapter = new ArrayAdapter<String>(context, R.layout.spinner_text, productList);
+        // Drop down layout style - list view with radio button
+        productAdapter.setDropDownViewResource(R.layout.spinner_dropdown);
+        product_spinner.setAdapter(productAdapter);
+        int selectedProductPosition = productAdapter.getPosition(saleDetail.product);
+        product_spinner.setSelection(selectedProductPosition);
+
         startTime.setText(saleDetail.start_time);
         endTime.setText(saleDetail.end_time);
-        product.setText(saleDetail.product);
         rate.setText(saleDetail.rate.toString());
         startReading.setText(saleDetail.start_reading.toString());
         endReading.setText(saleDetail.end_reading.toString());
@@ -108,29 +140,58 @@ public class SaleDetailAdapter extends RecyclerView.Adapter<SaleDetailAdapter.Vi
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saleDetail.start_time = startTime.getText().toString();
-                saleDetail.end_time = endTime.getText().toString();
-                saleDetail.product = product.getText().toString();
-                String rate_str = rate.getText().toString();
-                saleDetail.rate = isStringNullOrEmpty(rate_str) ?
-                        Double.parseDouble(rate_str) : 0;
-                String start_reading = startReading.getText().toString();
-                saleDetail.start_reading = isStringNullOrEmpty(start_reading) ?
-                        Double.parseDouble(start_reading) : 0;
-                String end_reading = endReading.getText().toString();
-                saleDetail.end_reading = isStringNullOrEmpty(end_reading) ?
-                        Double.parseDouble(end_reading) : 0;
-                String sales_volume = salesVolume.getText().toString();
-                saleDetail.sales_volume = isStringNullOrEmpty(sales_volume) ?
-                        Double.parseDouble(sales_volume) : 0;
-                String pump_test_volume = pumpTestVolume.getText().toString();
-                saleDetail.pump_test_volume = isStringNullOrEmpty(pump_test_volume) ?
-                        Double.parseDouble(pump_test_volume) : 0;
-                String amount_str = amount.getText().toString();
-                saleDetail.amount = isStringNullOrEmpty(amount_str) ? Double.parseDouble(amount_str) : 0;
-                saleDetailList.set(index, saleDetail);
-                notifyItemChanged(index);
-                alertDialog.dismiss();
+                String startTimeValue = startTime.getText() != null ? startTime.getText().toString() : null;
+                if (isStringNullOrEmpty(startTimeValue))
+                    startTime.setError("Start Time is required");
+                String endTimeValue = endTime.getText() != null ? endTime.getText().toString() : null;
+                if (isStringNullOrEmpty(endTimeValue))
+                    endTime.setError("End Time is required");
+//                String productValue = product.getText() != null ? product.getText().toString() : null;
+//                if (isStringNullOrEmpty(productValue))
+//                    product.setError("Product is required");
+                String rate_str = rate.getText() != null ? rate.getText().toString() : null;
+                if (isStringNullOrEmpty(rate_str))
+                    rate.setError("Rate is required");
+                String start_reading = startReading.getText() != null ?
+                        startReading.getText().toString() : null;
+                if (isStringNullOrEmpty(start_reading))
+                    startReading.setError("Start reading is required");
+
+                String end_reading = endReading.getText() != null ?
+                        endReading.getText().toString() : null;
+                if (isStringNullOrEmpty(end_reading))
+                    endReading.setError("End reading is required");
+
+                String pump_test_volume = pumpTestVolume.getText() != null ?
+                        pumpTestVolume.getText().toString() : null;
+                if (isStringNullOrEmpty(pump_test_volume))
+                    pumpTestVolume.setError("Pump Test Volume is required");
+
+                if (!isStringNullOrEmpty(startTimeValue) && !isStringNullOrEmpty(endTimeValue) &&
+                        !isStringNullOrEmpty(selected_product) && !isStringNullOrEmpty(rate_str) &&
+                        !isStringNullOrEmpty(start_reading) && !isStringNullOrEmpty(end_reading) &&
+                        !isStringNullOrEmpty(pump_test_volume)) {
+                    saleDetail.start_time = startTimeValue;
+                    saleDetail.end_time = endTimeValue;
+                    saleDetail.product = selected_product;
+                    Double rateValue = Double.parseDouble(rate_str);
+                    saleDetail.rate = rateValue;
+                    Double startReadingValue = Double.parseDouble(start_reading);
+                    saleDetail.start_reading = startReadingValue;
+                    Double endReadingValue = Double.parseDouble(end_reading);
+                    saleDetail.end_reading = endReadingValue;
+                    Double pumpTestVolume = Double.parseDouble(pump_test_volume);
+                    saleDetail.pump_test_volume = pumpTestVolume;
+
+                    Double salesVolume = endReadingValue - startReadingValue - pumpTestVolume;
+                    saleDetail.sales_volume = salesVolume;
+                    Double salesAmount = salesVolume * rateValue;
+                    saleDetail.amount = salesAmount;
+
+                    saleDetailList.set(index, saleDetail);
+                    notifyItemChanged(index);
+                    alertDialog.dismiss();
+                }
             }
         });
 
@@ -195,7 +256,7 @@ public class SaleDetailAdapter extends RecyclerView.Adapter<SaleDetailAdapter.Vi
     }
 
     private boolean isStringNullOrEmpty(String str) {
-        return str != null && !str.isEmpty();
+        return str == null || str.isEmpty();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

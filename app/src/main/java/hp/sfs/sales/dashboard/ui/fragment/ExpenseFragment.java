@@ -14,16 +14,21 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import hp.sfs.sales.dashboard.R;
 import hp.sfs.sales.dashboard.adapter.CreditAdapter;
 import hp.sfs.sales.dashboard.adapter.ExpenseAdapter;
+import hp.sfs.sales.dashboard.events.MessageEvent;
 import hp.sfs.sales.dashboard.model.Credit;
 import hp.sfs.sales.dashboard.model.Expense;
 
-public class ExpenseFragment extends Fragment {
+public class ExpenseFragment extends Fragment implements SaleFragment.OnSaveClickListener {
     View view;
     private RecyclerView recyclerView;
     private CardView expense_add_btn;
@@ -32,6 +37,16 @@ public class ExpenseFragment extends Fragment {
 
     public ExpenseFragment() {
         // Required empty public constructor
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -106,4 +121,16 @@ public class ExpenseFragment extends Fragment {
         return str != null && !str.isEmpty();
     }
 
+    @Override
+    public List<Expense> getExpenseList() {
+        return expense_list;
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onExpenseSaveEvent(MessageEvent messageEvent) {
+        System.out.println("Called MessageEvent in expense");
+        if (messageEvent.success) {
+            expense_list.clear();
+            expenseAdapter.notifyDataSetChanged();
+        }
+    }
 }

@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.google.android.material.tabs.TabLayout;
@@ -33,6 +34,8 @@ import hp.sfs.sales.dashboard.adapter.SaleViewPagerAdapter;
 import hp.sfs.sales.dashboard.events.MessageEvent;
 import hp.sfs.sales.dashboard.events.OperatorDownloadEvent;
 import hp.sfs.sales.dashboard.model.AllSaleDetail;
+import hp.sfs.sales.dashboard.model.Credit;
+import hp.sfs.sales.dashboard.model.Expense;
 import hp.sfs.sales.dashboard.model.OilSale;
 import hp.sfs.sales.dashboard.model.OnlineDeposit;
 import hp.sfs.sales.dashboard.model.Operator;
@@ -48,6 +51,7 @@ import hp.sfs.sales.dashboard.service.SaleDetailService;
 public class SaleFragment extends Fragment {
     private View view;
     private Spinner operator_spinner;
+    private EditText cash_collected_edit_text;
     ArrayAdapter<String> operatorAdapter;
     private List<String> operatorList = new ArrayList<>();
     private ViewPager2 viewPager;
@@ -111,9 +115,11 @@ public class SaleFragment extends Fragment {
         if (savedInstanceState == null) {
             view = inflater.inflate(R.layout.fragment_sale, container, false);
             operator_spinner = (Spinner) view.findViewById(R.id.operator_spinner);
+            cash_collected_edit_text = (EditText) view.findViewById(R.id.cash_collected_edit_text);
             viewPager = (ViewPager2) view.findViewById(R.id.pager);
             saveButton = (Button) view.findViewById(R.id.save_btn);
             addTabs(viewPager);
+            viewPager.setOffscreenPageLimit(3);
 
             tabLayout = (TabLayout) view.findViewById(R.id.tabs);
             new TabLayoutMediator(tabLayout, viewPager,
@@ -156,6 +162,7 @@ public class SaleFragment extends Fragment {
             operatorAdapter.notifyDataSetChanged();
         }
     }
+
     private void addTabs(ViewPager2 viewPager) {
         SaleViewPagerAdapter adapter = new SaleViewPagerAdapter(getActivity().getSupportFragmentManager(), getLifecycle());
         saleDetailFragment = new SaleDetailFragment();
@@ -171,7 +178,6 @@ public class SaleFragment extends Fragment {
         viewPager.setAdapter(adapter);
         mFragmentTitleList = adapter.getmFragmentTitleList();
     }
-
     private void setSaveButtonListener(Button saveButton) {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,19 +188,29 @@ public class SaleFragment extends Fragment {
                 List<OilSale> oilSaleList = onSaveClickListener.getOilSaleList();
                 onSaveClickListener = (OnSaveClickListener) onlineDepositFragment;
                 List<OnlineDeposit> onlineDepositList = onSaveClickListener.getOnlineDepositList();
+                onSaveClickListener = (OnSaveClickListener) creditRecordFragment;
+                List<Credit> creditList = onSaveClickListener.getCreditList();
+                onSaveClickListener = (OnSaveClickListener) expenseFragment;
+                List<Expense> expenseList = onSaveClickListener.getExpenseList();
                 Operator operator = operators.stream().filter(x -> x.operator_name.equals(operator_name)).findFirst().get();
+
                 AllSaleDetail allSaleDetail = new AllSaleDetail();
                 allSaleDetail.operatorId = operator.operator_id;
                 allSaleDetail.salesRecords = saleDetailList;
                 allSaleDetail.oilSaleList = oilSaleList;
                 allSaleDetail.onlineDepositList = onlineDepositList;
-                allSaleDetail.difference = 20.0;
-                allSaleDetail.cashCollected = 2000.0;
+                allSaleDetail.creditList = creditList;
+                allSaleDetail.expenseList = expenseList;
+                String cash = cash_collected_edit_text.getText().toString();
+                allSaleDetail.cashCollected = isStringNullOrEmpty(cash) ?
+                        Double.parseDouble(cash) : 0;
                 SaleDetailService.saveSaleDetail(getContext(), allSaleDetail);
             }
         });
     }
-
+    private boolean isStringNullOrEmpty(String str) {
+        return str != null && !str.isEmpty();
+    }
     public interface OnSaveClickListener {
         default List<SaleDetail> getSaleDetailList() {
             return null;
@@ -205,6 +221,14 @@ public class SaleFragment extends Fragment {
         }
 
         default List<OnlineDeposit> getOnlineDepositList() {
+            return null;
+        }
+
+        default List<Credit> getCreditList() {
+            return null;
+        }
+
+        default List<Expense> getExpenseList() {
             return null;
         }
     }

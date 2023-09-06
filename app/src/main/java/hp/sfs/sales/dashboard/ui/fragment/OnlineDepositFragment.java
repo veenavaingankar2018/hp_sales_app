@@ -14,20 +14,27 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import hp.sfs.sales.dashboard.R;
 import hp.sfs.sales.dashboard.adapter.OilSaleAdapter;
 import hp.sfs.sales.dashboard.adapter.OnlineDepositAdapter;
+import hp.sfs.sales.dashboard.events.MessageEvent;
 import hp.sfs.sales.dashboard.model.OilSale;
 import hp.sfs.sales.dashboard.model.OnlineDeposit;
+
 public class OnlineDepositFragment extends Fragment implements SaleFragment.OnSaveClickListener {
     private View view;
     private RecyclerView recyclerView;
     private CardView online_deposit_add_btn;
     private List<OnlineDeposit> onlineDepositList = new ArrayList<>();
     private OnlineDepositAdapter onlineDepositAdapter;
+
     public OnlineDepositFragment() {
         // Required empty public constructor
     }
@@ -38,10 +45,22 @@ public class OnlineDepositFragment extends Fragment implements SaleFragment.OnSa
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        if (savedInstanceState == null){
+        if (savedInstanceState == null) {
             view = inflater.inflate(R.layout.fragment_online_deposit, container, false);
             recyclerView = (RecyclerView) view.findViewById(R.id.online_deposit_list);
             online_deposit_add_btn = (CardView) view.findViewById(R.id.online_deposit_add_btn);
@@ -104,8 +123,15 @@ public class OnlineDepositFragment extends Fragment implements SaleFragment.OnSa
     public List<OnlineDeposit> getOnlineDepositList() {
         return onlineDepositList;
     }
-
     private boolean isStringNullOrEmpty(String str) {
         return str != null && !str.isEmpty();
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onOnlineDepositSaveEvent(MessageEvent messageEvent) {
+        System.out.println("Called MessageEvent");
+        if (messageEvent.success) {
+            onlineDepositList.clear();
+            onlineDepositAdapter.notifyDataSetChanged();
+        }
     }
 }

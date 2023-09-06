@@ -5,6 +5,7 @@
     <dimen name="hint_text_size">12dp</dimen>
     <dimen name="text_size">12dp</dimen>
     <dimen name="card_elevation">10dp</dimen>
+    <dimen name="dropdown_elevation">4dp</dimen>
     <dimen name="button_elevation">5dp</dimen>
 
     <!-- General -->

@@ -14,14 +14,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import hp.sfs.sales.dashboard.R;
 import hp.sfs.sales.dashboard.adapter.CreditAdapter;
+import hp.sfs.sales.dashboard.events.MessageEvent;
 import hp.sfs.sales.dashboard.model.Credit;
 
-public class CreditRecordFragment extends Fragment {
+public class CreditRecordFragment extends Fragment implements SaleFragment.OnSaveClickListener{
     View view;
     private RecyclerView recyclerView;
     private CardView credit_add_btn;
@@ -38,7 +43,16 @@ public class CreditRecordFragment extends Fragment {
 
         }
     }
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -106,5 +120,17 @@ public class CreditRecordFragment extends Fragment {
     }
     private boolean isStringNullOrEmpty(String str) {
         return str != null && !str.isEmpty();
+    }
+    @Override
+    public List<Credit> getCreditList() {
+        return creditList;
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onCreditSaveEvent(MessageEvent messageEvent) {
+        System.out.println("Called MessageEvent");
+        if (messageEvent.success) {
+            creditList.clear();
+            creditAdapter.notifyDataSetChanged();
+        }
     }
 }

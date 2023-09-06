@@ -18,9 +18,13 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TimePicker;
 
 import org.greenrobot.eventbus.EventBus;
@@ -33,10 +37,13 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import hp.sfs.sales.dashboard.R;
 import hp.sfs.sales.dashboard.adapter.OperatorAdapter;
 import hp.sfs.sales.dashboard.adapter.SaleDetailAdapter;
+import hp.sfs.sales.dashboard.enums.Product;
 import hp.sfs.sales.dashboard.events.MessageEvent;
 import hp.sfs.sales.dashboard.model.SaleDetail;
 import hp.sfs.sales.dashboard.service.OperatorService;
@@ -62,7 +69,7 @@ public class SaleDetailFragment extends Fragment implements SaleFragment.OnSaveC
     private String mParam1;
     private String mParam2;
     Context context;
-
+    private String selected_product;
     public SaleDetailFragment() {
         // Required empty public constructor
     }
@@ -142,51 +149,104 @@ public class SaleDetailFragment extends Fragment implements SaleFragment.OnSaveC
 
         EditText startTime = (EditText) promptsView.findViewById(R.id.start_time_edit_text);
         EditText endTime = (EditText) promptsView.findViewById(R.id.end_time_edit_text);
-        EditText product = (EditText) promptsView.findViewById(R.id.product_edit_text);
         EditText rate = (EditText) promptsView.findViewById(R.id.rate_edit_text);
         EditText startReading = (EditText) promptsView.findViewById(R.id.start_reading_edit_text);
         EditText endReading = (EditText) promptsView.findViewById(R.id.end_reading_edit_text);
         EditText salesVolume = (EditText) promptsView.findViewById(R.id.sales_volume_edit_text);
+        LinearLayout amount_layout = (LinearLayout) promptsView.findViewById(R.id.amount_layout);
+        LinearLayout sales_volume_layout = (LinearLayout) promptsView.findViewById(R.id.sales_volume_layout);
         EditText pumpTestVolume = (EditText) promptsView.findViewById(R.id.pump_test_volume_edit_text);
         EditText amount = (EditText) promptsView.findViewById(R.id.amount_edit_text);
+        Spinner product_spinner = (Spinner) promptsView.findViewById(R.id.product_spinner);
+        product_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selected_product = adapterView.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        List<String> productList = Stream.of(Product.values()).map(Product::name).collect(Collectors.toList());
+        ArrayAdapter<String> productAdapter = new ArrayAdapter<String>(getContext(), R.layout.spinner_text, productList);
+        // Drop down layout style - list view with radio button
+        productAdapter.setDropDownViewResource(R.layout.spinner_dropdown);
+        product_spinner.setAdapter(productAdapter);
+
+        //sales volume non-editable
+        salesVolume.setKeyListener(null);
+        salesVolume.setEnabled(false);
+        sales_volume_layout.setVisibility(View.GONE);
+        //make amount non-editable
+        amount.setKeyListener(null);
+        amount.setEnabled(false);
+        amount_layout.setVisibility(View.GONE);
         Button add_button = (Button) promptsView.findViewById(R.id.add_btn);
         Button cancel_button = (Button) promptsView.findViewById(R.id.cancel_btn);
         final Calendar calendarStartTime = Calendar.getInstance();
         setDatePicker(calendarStartTime, startTime);
         final Calendar calendarEndTime = Calendar.getInstance();
         setDatePicker(calendarEndTime, endTime);
-
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SaleDetail saleDetail = new SaleDetail();
-                saleDetail.start_time = startTime.getText().toString();
-                saleDetail.end_time = endTime.getText().toString();
-                saleDetail.product = product.getText().toString();
-                String rate_str = rate.getText().toString();
-                saleDetail.rate = isStringNullOrEmpty(rate_str) ?
-                        Double.parseDouble(rate_str) : 0;
-                String start_reading = startReading.getText().toString();
-                saleDetail.start_reading = isStringNullOrEmpty(start_reading) ?
-                        Double.parseDouble(start_reading) : 0;
-                String end_reading = endReading.getText().toString();
-                saleDetail.end_reading = isStringNullOrEmpty(end_reading) ?
-                        Double.parseDouble(end_reading) : 0;
-                String sales_volume = salesVolume.getText().toString();
-                saleDetail.sales_volume = isStringNullOrEmpty(sales_volume) ?
-                        Double.parseDouble(sales_volume) : 0;
-                String pump_test_volume = pumpTestVolume.getText().toString();
-                saleDetail.pump_test_volume = isStringNullOrEmpty(pump_test_volume) ?
-                        Double.parseDouble(pump_test_volume) : 0;
-                String amount_str = amount.getText().toString();
-                saleDetail.amount = isStringNullOrEmpty(amount_str) ? Double.parseDouble(amount_str) : 0;
+                String startTimeValue = startTime.getText() != null ? startTime.getText().toString() : null;
+                if (isStringNullOrEmpty(startTimeValue))
+                    startTime.setError("Start Time is required");
+                String endTimeValue = endTime.getText() != null ? endTime.getText().toString() : null;
+                if (isStringNullOrEmpty(endTimeValue))
+                    endTime.setError("End Time is required");
+                String productValue = selected_product != null ? selected_product : null;
+//                if (isStringNullOrEmpty(productValue))
+//                    product.setError("Product is required");
+                String rate_str = rate.getText() != null ? rate.getText().toString() : null;
+                if (isStringNullOrEmpty(rate_str))
+                    rate.setError("Rate is required");
+                String start_reading = startReading.getText() != null ?
+                        startReading.getText().toString() : null;
+                if (isStringNullOrEmpty(start_reading))
+                    startReading.setError("Start reading is required");
 
-                saleDetailList.add(saleDetail);
-                saleDetailAdapter.notifyDataSetChanged();
-                alertDialog.dismiss();
+                String end_reading = endReading.getText() != null ?
+                        endReading.getText().toString() : null;
+                if (isStringNullOrEmpty(end_reading))
+                    endReading.setError("End reading is required");
+
+                String pump_test_volume = pumpTestVolume.getText() != null ?
+                        pumpTestVolume.getText().toString() : null;
+                if (isStringNullOrEmpty(pump_test_volume))
+                    pumpTestVolume.setError("Pump Test Volume is required");
+
+                if (!isStringNullOrEmpty(startTimeValue) && !isStringNullOrEmpty(endTimeValue) &&
+                        !isStringNullOrEmpty(productValue) && !isStringNullOrEmpty(rate_str) &&
+                        !isStringNullOrEmpty(start_reading) && !isStringNullOrEmpty(end_reading) &&
+                        !isStringNullOrEmpty(pump_test_volume)) {
+                    saleDetail.start_time = startTimeValue;
+                    saleDetail.end_time = endTimeValue;
+                    saleDetail.product = productValue;
+                    Double rateValue = Double.parseDouble(rate_str);
+                    saleDetail.rate = rateValue;
+                    Double startReadingValue = Double.parseDouble(start_reading);
+                    saleDetail.start_reading = startReadingValue;
+                    Double endReadingValue = Double.parseDouble(end_reading);
+                    saleDetail.end_reading = endReadingValue;
+                    Double pumpTestVolume = Double.parseDouble(pump_test_volume);
+                    saleDetail.pump_test_volume = pumpTestVolume;
+
+                    Double salesVolume = endReadingValue - startReadingValue - pumpTestVolume;
+                    saleDetail.sales_volume = salesVolume;
+                    Double salesAmount = salesVolume * rateValue;
+                    saleDetail.amount = salesAmount;
+
+                    saleDetailList.add(saleDetail);
+                    saleDetailAdapter.notifyDataSetChanged();
+                    alertDialog.dismiss();
+                }
             }
         });
-
         cancel_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -244,7 +304,7 @@ public class SaleDetailFragment extends Fragment implements SaleFragment.OnSaveC
     }
 
     private boolean isStringNullOrEmpty(String str) {
-        return str != null && !str.isEmpty();
+        return str == null || str.isEmpty();
     }
 
     @Override

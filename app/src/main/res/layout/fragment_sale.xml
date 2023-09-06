@@ -13,14 +13,15 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/general_gap_xs">
+            android:layout_margin="@dimen/general_gap_xs"
+            android:elevation="@dimen/card_elevation">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/blue_color"
-                android:elevation="@dimen/card_elevation"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginRight="@dimen/general_gap_xs"
+                android:layout_marginLeft="@dimen/general_gap_xs">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -38,7 +39,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/operator"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/general_text_color"
                         android:textSize="@dimen/font_size_s"
                         android:textStyle="bold" />
 
@@ -48,7 +49,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/spinner_bg"
-                        android:elevation="@dimen/card_elevation"
+                        android:elevation="@dimen/dropdown_elevation"
                         android:popupBackground="@color/dropdown_Color"
                         android:popupElevation="@dimen/card_elevation"
                         android:spinnerMode="dropdown"
@@ -72,7 +73,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/cash_Collected"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/general_text_color"
                         android:textSize="@dimen/font_size_s"
                         android:textStyle="bold" />
 
@@ -82,7 +83,6 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:backgroundTint="@color/red_color"
-                        android:focusable="false"
                         android:textColor="@color/general_text_color"
                         android:textSize="@dimen/font_size_s" />
                 </LinearLayout>
