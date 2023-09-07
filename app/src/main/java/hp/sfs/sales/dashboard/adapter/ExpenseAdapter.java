@@ -27,6 +27,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHold
         this.context = context;
         this.expenseList = expenseList;
     }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -35,6 +36,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHold
         ExpenseAdapter.ViewHolder viewHolder = new ExpenseAdapter.ViewHolder(expenseView);
         return viewHolder;
     }
+
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (Optional.ofNullable(expenseList).isPresent()) {
@@ -50,6 +52,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHold
             });
         }
     }
+
     private void showExpenseDialog(Expense expense, Integer index) {
         LayoutInflater li = LayoutInflater.from(this.context);
         View promptsView = li.inflate(R.layout.expense_card_view_layout, null);
@@ -70,14 +73,26 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHold
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Expense expense = new Expense();
-                expense.description = description_edit_text.getText().toString();
-                String amount_txt = amount.getText().toString();
-                expense.amount = isStringNullOrEmpty(amount_txt) ?
-                        Double.parseDouble(amount_txt) : 0;
-                expenseList.set(index, expense);
-                notifyItemChanged(index);
-                alertDialog.dismiss();
+                boolean isError = false;
+                String description = description_edit_text.getText() != null ? description_edit_text.getText().toString() : null;
+                if (isStringNullOrEmpty(description)) {
+                    isError = true;
+                    description_edit_text.setError(context.getResources().getString(R.string.description_error));
+                }
+                String amount_str = amount.getText() != null ? amount.getText().toString() : null;
+                if (isStringNullOrEmpty(amount_str)) {
+                    isError = true;
+                    amount.setError(context.getResources().getString(R.string.amount_error));
+                }
+
+                if (!isError) {
+                    Expense expense = new Expense();
+                    expense.description = description;
+                    expense.amount = Double.parseDouble(amount_str);
+                    expenseList.set(index, expense);
+                    notifyItemChanged(index);
+                    alertDialog.dismiss();
+                }
             }
         });
         cancel_button.setOnClickListener(new View.OnClickListener() {
@@ -88,9 +103,11 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHold
         });
         alertDialog.show();
     }
+
     private boolean isStringNullOrEmpty(String str) {
-        return str != null && !str.isEmpty();
+        return str == null || str.isEmpty();
     }
+
     @Override
     public int getItemCount() {
         return expenseList.size();

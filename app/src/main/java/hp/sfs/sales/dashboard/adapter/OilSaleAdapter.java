@@ -79,17 +79,31 @@ public class OilSaleAdapter extends RecyclerView.Adapter<OilSaleAdapter.ViewHold
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                OilSale oilSale = new OilSale();
-                oilSale.product = product.getText().toString();
-                String quantity_str = quantity.getText().toString();
-                oilSale.quantity = isStringNullOrEmpty(quantity_str) ?
-                        Double.parseDouble(quantity_str) : 0;
-                String amount_txt = amount.getText().toString();
-                oilSale.amount = isStringNullOrEmpty(amount_txt) ?
-                        Double.parseDouble(amount_txt) : 0;
-                oilSaleList.set(index, oilSale);
-                notifyItemChanged(index);
-                alertDialog.dismiss();
+                boolean isError = false;
+                String product_value = product.getText() != null ? product.getText().toString() : null;
+                if (isStringNullOrEmpty(product_value)) {
+                    isError = true;
+                    product.setError(context.getResources().getString(R.string.product_error));
+                }
+                String quantity_value = quantity.getText() != null ? quantity.getText().toString() : null;
+                if (isStringNullOrEmpty(quantity_value)) {
+                    isError = true;
+                    quantity.setError(context.getResources().getString(R.string.quantity_error));
+                }
+                String amount_str = amount.getText() != null ? amount.getText().toString() : null;
+                if (isStringNullOrEmpty(amount_str)) {
+                    isError = true;
+                    amount.setError(context.getResources().getString(R.string.amount_error));
+                }
+                if (!isError) {
+                    OilSale oilSale = new OilSale();
+                    oilSale.product = product_value;
+                    oilSale.quantity = Double.parseDouble(quantity_value);
+                    oilSale.amount = Double.parseDouble(amount_str);
+                    oilSaleList.set(index, oilSale);
+                    notifyItemChanged(index);
+                    alertDialog.dismiss();
+                }
             }
         });
 
@@ -108,7 +122,7 @@ public class OilSaleAdapter extends RecyclerView.Adapter<OilSaleAdapter.ViewHold
     }
 
     private boolean isStringNullOrEmpty(String str) {
-        return str != null && !str.isEmpty();
+        return str == null || str.isEmpty();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

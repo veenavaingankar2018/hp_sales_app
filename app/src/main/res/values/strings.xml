@@ -41,10 +41,18 @@
     <string name="sales_volume">Sales Volume</string>
     <string name="pump_test_volume">Pump Test Volume</string>
     <string name="amount">Amount</string>
+    <string name="start_time_error">Start Time is required</string>
+    <string name="end_time_error">End Time is required</string>
+    <string name="rate_error">Rate is required</string>
+    <string name="start_reading_error">Start reading is required</string>
+    <string name="end_reading_error">End reading is required</string>
+    <string name="pump_test_volume_error">Pump Test Volume is required</string>
 
     <!-- Expense Screen -->
     <string name="expense_add_btn">Add Expense</string>
     <string name="description">Description</string>
+    <string name="amount_error">Amount is required</string>
+    <string name="description_error">Description is required</string>
 
     <!-- Credit Screen -->
     <string name="credit_add_btn">Add Credit</string>
@@ -55,6 +63,8 @@
     <!-- Oil Sale Screen -->
     <string name="oil_sale_add_btn">Add Oil Sale</string>
     <string name="quantity">Quantity</string>
+    <string name="product_error">Product is required.</string>
+    <string name="quantity_error">Quantity is required.</string>
 
     <!-- Online Deposit Screen -->
     <string name="online_deposit_add_btn">Add Online Deposit</string>

@@ -38,11 +38,13 @@ public class ExpenseFragment extends Fragment implements SaleFragment.OnSaveClic
     public ExpenseFragment() {
         // Required empty public constructor
     }
+
     @Override
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
     }
+
     @Override
     public void onStop() {
         super.onStop();
@@ -98,14 +100,25 @@ public class ExpenseFragment extends Fragment implements SaleFragment.OnSaveClic
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Expense expense = new Expense();
-                expense.description = description_edit_text.getText().toString();
-                String amount_txt = amount.getText().toString();
-                expense.amount = isStringNullOrEmpty(amount_txt) ?
-                        Double.parseDouble(amount_txt) : 0;
-                expense_list.add(expense);
-                expenseAdapter.notifyDataSetChanged();
-                alertDialog.dismiss();
+                boolean isError = false;
+                String description = description_edit_text.getText() != null ? description_edit_text.getText().toString() : null;
+                if (isStringNullOrEmpty(description)) {
+                    isError = true;
+                    description_edit_text.setError(getResources().getString(R.string.description_error));
+                }
+                String amount_str = amount.getText() != null ? amount.getText().toString() : null;
+                if (isStringNullOrEmpty(amount_str)) {
+                    isError = true;
+                    amount.setError(getResources().getString(R.string.amount_error));
+                }
+                if (!isError) {
+                    Expense expense = new Expense();
+                    expense.description = description;
+                    expense.amount = Double.parseDouble(amount_str);
+                    expense_list.add(expense);
+                    expenseAdapter.notifyDataSetChanged();
+                    alertDialog.dismiss();
+                }
             }
         });
 
@@ -117,14 +130,16 @@ public class ExpenseFragment extends Fragment implements SaleFragment.OnSaveClic
         });
         alertDialog.show();
     }
+
     private boolean isStringNullOrEmpty(String str) {
-        return str != null && !str.isEmpty();
+        return str == null || str.isEmpty();
     }
 
     @Override
     public List<Expense> getExpenseList() {
         return expense_list;
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onExpenseSaveEvent(MessageEvent messageEvent) {
         System.out.println("Called MessageEvent in expense");

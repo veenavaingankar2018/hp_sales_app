@@ -58,16 +58,19 @@ public class OilSaleFragment extends Fragment implements SaleFragment.OnSaveClic
 
         return fragment;
     }
+
     @Override
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
     }
+
     @Override
     public void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +99,7 @@ public class OilSaleFragment extends Fragment implements SaleFragment.OnSaveClic
         }
         return view;
     }
+
     private void showSaleDetailDialog() {
         LayoutInflater li = LayoutInflater.from(getContext());
         View promptsView = li.inflate(R.layout.oil_sale_card_view_layout, null);
@@ -114,17 +118,31 @@ public class OilSaleFragment extends Fragment implements SaleFragment.OnSaveClic
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                OilSale oilSale = new OilSale();
-                oilSale.product = product.getText().toString();
-                String quantity_str = quantity.getText().toString();
-                oilSale.quantity = isStringNullOrEmpty(quantity_str) ?
-                        Double.parseDouble(quantity_str) : 0;
-                String amount_txt = amount.getText().toString();
-                oilSale.amount = isStringNullOrEmpty(amount_txt) ?
-                        Double.parseDouble(amount_txt) : 0;
-                oilSaleList.add(oilSale);
-                oilSaleAdapter.notifyDataSetChanged();
-                alertDialog.dismiss();
+                boolean isError = false;
+                String product_value = product.getText() != null ? product.getText().toString() : null;
+                if (isStringNullOrEmpty(product_value)) {
+                    isError = true;
+                    product.setError(getResources().getString(R.string.product_error));
+                }
+                String quantity_value = quantity.getText() != null ? quantity.getText().toString() : null;
+                if (isStringNullOrEmpty(quantity_value)) {
+                    isError = true;
+                    quantity.setError(getResources().getString(R.string.quantity_error));
+                }
+                String amount_str = amount.getText() != null ? amount.getText().toString() : null;
+                if (isStringNullOrEmpty(amount_str)) {
+                    isError = true;
+                    amount.setError(getResources().getString(R.string.amount_error));
+                }
+                if (!isError) {
+                    OilSale oilSale = new OilSale();
+                    oilSale.product = product_value;
+                    oilSale.quantity = Double.parseDouble(quantity_value);
+                    oilSale.amount = Double.parseDouble(amount_str);
+                    oilSaleList.add(oilSale);
+                    oilSaleAdapter.notifyDataSetChanged();
+                    alertDialog.dismiss();
+                }
             }
         });
 
@@ -136,13 +154,16 @@ public class OilSaleFragment extends Fragment implements SaleFragment.OnSaveClic
         });
         alertDialog.show();
     }
+
     private boolean isStringNullOrEmpty(String str) {
-        return str != null && !str.isEmpty();
+        return str == null || str.isEmpty();
     }
+
     @Override
     public List<OilSale> getOilSaleList() {
         return oilSaleList;
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onOilSaleSaveEvent(MessageEvent messageEvent) {
         System.out.println("Called MessageEvent");

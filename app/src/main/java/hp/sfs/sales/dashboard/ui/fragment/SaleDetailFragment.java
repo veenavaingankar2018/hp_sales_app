@@ -70,6 +70,7 @@ public class SaleDetailFragment extends Fragment implements SaleFragment.OnSaveC
     private String mParam2;
     Context context;
     private String selected_product;
+
     public SaleDetailFragment() {
         // Required empty public constructor
     }
@@ -192,38 +193,48 @@ public class SaleDetailFragment extends Fragment implements SaleFragment.OnSaveC
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                boolean isError = false;
                 SaleDetail saleDetail = new SaleDetail();
                 String startTimeValue = startTime.getText() != null ? startTime.getText().toString() : null;
-                if (isStringNullOrEmpty(startTimeValue))
-                    startTime.setError("Start Time is required");
+                if (isStringNullOrEmpty(startTimeValue)) {
+                    isError = true;
+                    startTime.setError(getResources().getString(R.string.start_time_error));
+                }
                 String endTimeValue = endTime.getText() != null ? endTime.getText().toString() : null;
-                if (isStringNullOrEmpty(endTimeValue))
-                    endTime.setError("End Time is required");
+                if (isStringNullOrEmpty(endTimeValue)) {
+                    isError = true;
+                    endTime.setError(getResources().getString(R.string.end_time_error));
+                }
                 String productValue = selected_product != null ? selected_product : null;
 //                if (isStringNullOrEmpty(productValue))
 //                    product.setError("Product is required");
                 String rate_str = rate.getText() != null ? rate.getText().toString() : null;
-                if (isStringNullOrEmpty(rate_str))
-                    rate.setError("Rate is required");
+                if (isStringNullOrEmpty(rate_str)) {
+                    isError = true;
+                    rate.setError(getResources().getString(R.string.rate_error));
+                }
                 String start_reading = startReading.getText() != null ?
                         startReading.getText().toString() : null;
-                if (isStringNullOrEmpty(start_reading))
-                    startReading.setError("Start reading is required");
+                if (isStringNullOrEmpty(start_reading)) {
+                    isError = true;
+                    startReading.setError(getResources().getString(R.string.start_reading_error));
+                }
 
                 String end_reading = endReading.getText() != null ?
                         endReading.getText().toString() : null;
-                if (isStringNullOrEmpty(end_reading))
-                    endReading.setError("End reading is required");
+                if (isStringNullOrEmpty(end_reading)) {
+                    isError = true;
+                    endReading.setError(getResources().getString(R.string.end_reading_error));
+                }
 
                 String pump_test_volume = pumpTestVolume.getText() != null ?
                         pumpTestVolume.getText().toString() : null;
-                if (isStringNullOrEmpty(pump_test_volume))
-                    pumpTestVolume.setError("Pump Test Volume is required");
+                if (isStringNullOrEmpty(pump_test_volume)) {
+                    isError = true;
+                    pumpTestVolume.setError(getResources().getString(R.string.pump_test_volume_error));
+                }
 
-                if (!isStringNullOrEmpty(startTimeValue) && !isStringNullOrEmpty(endTimeValue) &&
-                        !isStringNullOrEmpty(productValue) && !isStringNullOrEmpty(rate_str) &&
-                        !isStringNullOrEmpty(start_reading) && !isStringNullOrEmpty(end_reading) &&
-                        !isStringNullOrEmpty(pump_test_volume)) {
+                if (!isError) {
                     saleDetail.start_time = startTimeValue;
                     saleDetail.end_time = endTimeValue;
                     saleDetail.product = productValue;

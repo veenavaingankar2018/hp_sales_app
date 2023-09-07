@@ -140,37 +140,45 @@ public class SaleDetailAdapter extends RecyclerView.Adapter<SaleDetailAdapter.Vi
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                boolean isError = false;
                 String startTimeValue = startTime.getText() != null ? startTime.getText().toString() : null;
-                if (isStringNullOrEmpty(startTimeValue))
-                    startTime.setError("Start Time is required");
+                if (isStringNullOrEmpty(startTimeValue)) {
+                    isError = true;
+                    startTime.setError(context.getResources().getString(R.string.start_time_error));
+                }
                 String endTimeValue = endTime.getText() != null ? endTime.getText().toString() : null;
-                if (isStringNullOrEmpty(endTimeValue))
-                    endTime.setError("End Time is required");
-//                String productValue = product.getText() != null ? product.getText().toString() : null;
-//                if (isStringNullOrEmpty(productValue))
-//                    product.setError("Product is required");
+                if (isStringNullOrEmpty(endTimeValue)) {
+                    isError = true;
+                    endTime.setError(context.getResources().getString(R.string.end_time_error));
+                }
+
                 String rate_str = rate.getText() != null ? rate.getText().toString() : null;
-                if (isStringNullOrEmpty(rate_str))
-                    rate.setError("Rate is required");
+                if (isStringNullOrEmpty(rate_str)) {
+                    isError = true;
+                    rate.setError(context.getResources().getString(R.string.rate_error));
+                }
                 String start_reading = startReading.getText() != null ?
                         startReading.getText().toString() : null;
-                if (isStringNullOrEmpty(start_reading))
-                    startReading.setError("Start reading is required");
+                if (isStringNullOrEmpty(start_reading)) {
+                    isError = true;
+                    startReading.setError(context.getResources().getString(R.string.start_reading_error));
+                }
 
                 String end_reading = endReading.getText() != null ?
                         endReading.getText().toString() : null;
-                if (isStringNullOrEmpty(end_reading))
-                    endReading.setError("End reading is required");
+                if (isStringNullOrEmpty(end_reading)) {
+                    isError = true;
+                    endReading.setError(context.getResources().getString(R.string.end_reading_error));
+                }
 
                 String pump_test_volume = pumpTestVolume.getText() != null ?
                         pumpTestVolume.getText().toString() : null;
-                if (isStringNullOrEmpty(pump_test_volume))
-                    pumpTestVolume.setError("Pump Test Volume is required");
+                if (isStringNullOrEmpty(pump_test_volume)) {
+                    isError = true;
+                    pumpTestVolume.setError(context.getResources().getString(R.string.pump_test_volume_error));
+                }
 
-                if (!isStringNullOrEmpty(startTimeValue) && !isStringNullOrEmpty(endTimeValue) &&
-                        !isStringNullOrEmpty(selected_product) && !isStringNullOrEmpty(rate_str) &&
-                        !isStringNullOrEmpty(start_reading) && !isStringNullOrEmpty(end_reading) &&
-                        !isStringNullOrEmpty(pump_test_volume)) {
+                if (!isError) {
                     saleDetail.start_time = startTimeValue;
                     saleDetail.end_time = endTimeValue;
                     saleDetail.product = selected_product;
