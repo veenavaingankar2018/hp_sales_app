@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -159,6 +161,39 @@ public class SaleDetailFragment extends Fragment implements SaleFragment.OnSaveC
         EditText pumpTestVolume = (EditText) promptsView.findViewById(R.id.pump_test_volume_edit_text);
         EditText amount = (EditText) promptsView.findViewById(R.id.amount_edit_text);
         Spinner product_spinner = (Spinner) promptsView.findViewById(R.id.product_spinner);
+        startTime.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                startTime.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        endTime.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                endTime.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
         product_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -194,7 +229,6 @@ public class SaleDetailFragment extends Fragment implements SaleFragment.OnSaveC
             @Override
             public void onClick(View view) {
                 boolean isError = false;
-                SaleDetail saleDetail = new SaleDetail();
                 String startTimeValue = startTime.getText() != null ? startTime.getText().toString() : null;
                 if (isStringNullOrEmpty(startTimeValue)) {
                     isError = true;
@@ -235,6 +269,7 @@ public class SaleDetailFragment extends Fragment implements SaleFragment.OnSaveC
                 }
 
                 if (!isError) {
+                    SaleDetail saleDetail = new SaleDetail();
                     saleDetail.start_time = startTimeValue;
                     saleDetail.end_time = endTimeValue;
                     saleDetail.product = productValue;

@@ -59,6 +59,8 @@
     <string name="transaction_type">Transaction Type</string>
     <string name="driver_name">Driver Name</string>
     <string name="vehicle_number">Vehicle Number</string>
+    <string name="driver_error">Driver is required</string>
+    <string name="vehicle_error">Vehicle is required</string>
 
     <!-- Oil Sale Screen -->
     <string name="oil_sale_add_btn">Add Oil Sale</string>
@@ -70,6 +72,9 @@
     <string name="online_deposit_add_btn">Add Online Deposit</string>
     <string name="mode">Mode</string>
     <string name="remark">Remark</string>
+    <string name="mode_error">Mode is required</string>
+    <string name="remark_error">Remark is required</string>
+
 
     <string name="save_btn">Save</string>
     <string name="cancel_btn">Cancel</string>

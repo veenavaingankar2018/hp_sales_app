@@ -98,15 +98,31 @@ public class OnlineDepositFragment extends Fragment implements SaleFragment.OnSa
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                OnlineDeposit onlineDeposit = new OnlineDeposit();
-                onlineDeposit.mode = mode.getText().toString();
-                String amount_str = amount.getText().toString();
-                onlineDeposit.amount = isStringNullOrEmpty(amount_str) ?
-                        Double.parseDouble(amount_str) : 0;
-                onlineDeposit.remark = remark.getText().toString();
-                onlineDepositList.add(onlineDeposit);
-                onlineDepositAdapter.notifyDataSetChanged();
-                alertDialog.dismiss();
+                boolean isError = false;
+                String modeType = mode.getText() != null ? mode.getText().toString() : null;
+                if (isStringNullOrEmpty(modeType)) {
+                    isError = true;
+                    mode.setError(getResources().getString(R.string.mode_error));
+                }
+                String amountValue = amount.getText() != null ? amount.getText().toString() : null;
+                if (isStringNullOrEmpty(amountValue)) {
+                    isError = true;
+                    amount.setError(getResources().getString(R.string.amount_error));
+                }
+                String remark_str = remark.getText() != null ? remark.getText().toString() : null;
+                if (isStringNullOrEmpty(remark_str)) {
+                    isError = true;
+                    remark.setError(getResources().getString(R.string.remark_error));
+                }
+                if (!isError) {
+                    OnlineDeposit onlineDeposit = new OnlineDeposit();
+                    onlineDeposit.mode = modeType;
+                    onlineDeposit.amount = Double.parseDouble(amountValue);
+                    onlineDeposit.remark = remark_str;
+                    onlineDepositList.add(onlineDeposit);
+                    onlineDepositAdapter.notifyDataSetChanged();
+                    alertDialog.dismiss();
+                }
             }
         });
 
@@ -123,9 +139,11 @@ public class OnlineDepositFragment extends Fragment implements SaleFragment.OnSa
     public List<OnlineDeposit> getOnlineDepositList() {
         return onlineDepositList;
     }
+
     private boolean isStringNullOrEmpty(String str) {
-        return str != null && !str.isEmpty();
+        return str == null || str.isEmpty();
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onOnlineDepositSaveEvent(MessageEvent messageEvent) {
         System.out.println("Called MessageEvent");

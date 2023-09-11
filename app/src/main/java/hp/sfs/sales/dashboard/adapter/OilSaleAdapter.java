@@ -115,16 +115,13 @@ public class OilSaleAdapter extends RecyclerView.Adapter<OilSaleAdapter.ViewHold
         });
         alertDialog.show();
     }
-
     @Override
     public int getItemCount() {
         return oilSaleList.size();
     }
-
     private boolean isStringNullOrEmpty(String str) {
         return str == null || str.isEmpty();
     }
-
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView product_textview;
         TextView quantity_textview;
