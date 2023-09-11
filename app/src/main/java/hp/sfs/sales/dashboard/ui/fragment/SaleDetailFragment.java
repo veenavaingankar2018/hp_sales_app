@@ -49,6 +49,7 @@ import hp.sfs.sales.dashboard.enums.Product;
 import hp.sfs.sales.dashboard.events.MessageEvent;
 import hp.sfs.sales.dashboard.model.SaleDetail;
 import hp.sfs.sales.dashboard.service.OperatorService;
+import hp.sfs.sales.dashboard.ui.activity.MainActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -93,6 +94,12 @@ public class SaleDetailFragment extends Fragment implements SaleFragment.OnSaveC
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity) getActivity()).setTitle("Sale Detail");
     }
 
     @Override

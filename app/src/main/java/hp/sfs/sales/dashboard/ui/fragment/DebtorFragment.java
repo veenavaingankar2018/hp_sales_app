@@ -29,6 +29,7 @@ import hp.sfs.sales.dashboard.events.OperatorDownloadEvent;
 import hp.sfs.sales.dashboard.model.Debtor;
 import hp.sfs.sales.dashboard.service.DebtorService;
 import hp.sfs.sales.dashboard.service.OperatorService;
+import hp.sfs.sales.dashboard.ui.activity.MainActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,6 +70,11 @@ public class DebtorFragment extends Fragment {
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity) getActivity()).setTitle("Debtor");
     }
 
     @Override
