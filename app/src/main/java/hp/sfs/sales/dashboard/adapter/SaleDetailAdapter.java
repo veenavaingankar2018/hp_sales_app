@@ -22,8 +22,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -141,6 +143,7 @@ public class SaleDetailAdapter extends RecyclerView.Adapter<SaleDetailAdapter.Vi
             @Override
             public void onClick(View view) {
                 boolean isError = false;
+                Double startReadingValue = 0.0, endReadingValue = 0.0;
                 String startTimeValue = startTime.getText() != null ? startTime.getText().toString() : null;
                 if (isStringNullOrEmpty(startTimeValue)) {
                     isError = true;
@@ -162,20 +165,30 @@ public class SaleDetailAdapter extends RecyclerView.Adapter<SaleDetailAdapter.Vi
                 if (isStringNullOrEmpty(start_reading)) {
                     isError = true;
                     startReading.setError(context.getResources().getString(R.string.start_reading_error));
-                }
+                } else
+                    startReadingValue = Double.parseDouble(start_reading);
 
                 String end_reading = endReading.getText() != null ?
                         endReading.getText().toString() : null;
                 if (isStringNullOrEmpty(end_reading)) {
                     isError = true;
                     endReading.setError(context.getResources().getString(R.string.end_reading_error));
-                }
+                } else
+                    endReadingValue = Double.parseDouble(end_reading);
 
                 String pump_test_volume = pumpTestVolume.getText() != null ?
                         pumpTestVolume.getText().toString() : null;
                 if (isStringNullOrEmpty(pump_test_volume)) {
                     isError = true;
                     pumpTestVolume.setError(context.getResources().getString(R.string.pump_test_volume_error));
+                }
+                if (startReadingValue > endReadingValue) {
+                    isError = true;
+                    startReading.setError(context.getResources().getString(R.string.start_reading_greater_than_end_reading_error));
+                }
+                if (compareStartTimeAndEndTime(startTimeValue, endTimeValue)) {
+                    isError = true;
+                    startTime.setError(context.getResources().getString(R.string.start_time_greater_than_end_time_error));
                 }
 
                 if (!isError) {
@@ -184,9 +197,7 @@ public class SaleDetailAdapter extends RecyclerView.Adapter<SaleDetailAdapter.Vi
                     saleDetail.product = selected_product;
                     Double rateValue = Double.parseDouble(rate_str);
                     saleDetail.rate = rateValue;
-                    Double startReadingValue = Double.parseDouble(start_reading);
                     saleDetail.start_reading = startReadingValue;
-                    Double endReadingValue = Double.parseDouble(end_reading);
                     saleDetail.end_reading = endReadingValue;
                     Double pumpTestVolume = Double.parseDouble(pump_test_volume);
                     saleDetail.pump_test_volume = pumpTestVolume;
@@ -210,6 +221,20 @@ public class SaleDetailAdapter extends RecyclerView.Adapter<SaleDetailAdapter.Vi
             }
         });
         alertDialog.show();
+    }
+
+    private boolean compareStartTimeAndEndTime(String startTime, String endTime) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        try {
+            Date startDate = dateFormat.parse(startTime);
+            Date endDate = dateFormat.parse(endTime);
+            if (startDate.compareTo(endDate) > 0) {
+                return true;
+            } else
+                return false;
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void setDatePicker(Calendar calendar, EditText dateTimeEditText) {

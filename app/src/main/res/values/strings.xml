@@ -42,9 +42,11 @@
     <string name="pump_test_volume">Pump Test Volume</string>
     <string name="amount">Amount</string>
     <string name="start_time_error">Start Time is required</string>
+    <string name="start_time_greater_than_end_time_error">Start Time should be less than end time</string>
     <string name="end_time_error">End Time is required</string>
     <string name="rate_error">Rate is required</string>
     <string name="start_reading_error">Start reading is required</string>
+    <string name="start_reading_greater_than_end_reading_error">Start reading should be less than end reading</string>
     <string name="end_reading_error">End reading is required</string>
     <string name="pump_test_volume_error">Pump Test Volume is required</string>
 
