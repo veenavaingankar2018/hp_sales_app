@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import hp.sfs.sales.dashboard.R;
 import hp.sfs.sales.dashboard.ui.fragment.DashboardFragment;
+import hp.sfs.sales.dashboard.ui.fragment.LoginFragment;
 import hp.sfs.sales.dashboard.ui.fragment.OperatorFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,8 +46,9 @@ public class MainActivity extends AppCompatActivity {
     private void startAddingFragment(){
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.main_activity_frame_layout, new DashboardFragment(), DashboardFragment.class.getSimpleName());
-        fragmentTransaction.addToBackStack(null);
+        //fragmentTransaction.replace(R.id.main_activity_frame_layout, new DashboardFragment(), DashboardFragment.class.getSimpleName());
+        fragmentTransaction.replace(R.id.main_activity_frame_layout, new LoginFragment(), LoginFragment.class.getSimpleName());
+        //fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
