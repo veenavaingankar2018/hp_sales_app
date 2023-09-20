@@ -73,10 +73,12 @@ public class DashboardFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
     @Override
     public void onResume() {
         super.onResume();
         ((MainActivity) getActivity()).setTitle("Dashboard");
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -99,7 +101,6 @@ public class DashboardFragment extends Fragment {
             operators = operatorDownloadEvent.operatorList;
         }
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

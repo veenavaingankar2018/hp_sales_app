@@ -42,6 +42,7 @@ import hp.sfs.sales.dashboard.model.Operator;
 import hp.sfs.sales.dashboard.model.SaleDetail;
 import hp.sfs.sales.dashboard.service.OperatorService;
 import hp.sfs.sales.dashboard.service.SaleDetailService;
+import hp.sfs.sales.dashboard.ui.activity.MainActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -95,6 +96,13 @@ public class SaleFragment extends Fragment {
     public void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity) getActivity()).setTitle("Sale Detail");
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override

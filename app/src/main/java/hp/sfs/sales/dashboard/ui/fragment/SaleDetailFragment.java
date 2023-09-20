@@ -99,12 +99,6 @@ public class SaleDetailFragment extends Fragment implements SaleFragment.OnSaveC
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        ((MainActivity) getActivity()).setTitle("Sale Detail");
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {

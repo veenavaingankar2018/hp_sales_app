@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import hp.sfs.sales.dashboard.R;
+import hp.sfs.sales.dashboard.ui.activity.MainActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,6 +54,12 @@ public class LoginFragment extends Fragment {
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     }
 
     @Override
